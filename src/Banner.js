@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "./axios";
 import requests from "./requests";
+import "./Banner.css";
 
 function Banner() {
   const [movie, setMovie] = useState([]);
@@ -17,6 +18,10 @@ function Banner() {
     fetchData();
   }, []);
 
+  function truncate(str, n) {
+    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+  }
+
   //   console.log(movie);
   return (
     <header
@@ -29,15 +34,18 @@ function Banner() {
     >
       <div className="banner_contents">
         {/* title */}
-        <h1>{movie?.title || movie?.name || movie?.original_name}</h1>
+        <h1 className="banner_title">
+          {movie?.title || movie?.name || movie?.original_name}
+        </h1>
         <div className="banner_buttons">
           <button className="banner_button">Play</button>
           <button className="banner_button">My List</button>
         </div>
-        <h1 className="banner_description">{movie?.overview}</h1>
+        <h1 className="banner_description">{truncate(movie?.overview, 150)}</h1>
         {/* div -> buttons */}
         {/* description */}
       </div>
+      <div className="banner--fadebottom" />
     </header>
   );
 }
